@@ -11,9 +11,10 @@
   },
   "dependencies": {
     "@ant-design/icons": "^6.0.2",
+    "@dcmtools/dicom-parser": "^1.0.0",
+    "@dcmtools/jpeg-lossless-decoder-js": "^1.0.0",
     "@tailwindcss/vite": "^4.1.13",
     "antd": "^5.27.3",
-    "dicom-parser": "^1.8.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router": "^7.9.1",

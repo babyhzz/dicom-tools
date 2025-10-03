@@ -1,10 +1,9 @@
 import { InboxOutlined } from "@ant-design/icons";
-import { message, Upload } from "antd";
-import { parseDicom } from "dicom-parser";
+import { Upload } from "antd";
 
 const { Dragger } = Upload;
 
-export default function DicomPicker() {
+export default function DicomPicker({ onChange }) {
   return (
     <Dragger
       name="file"
@@ -14,8 +13,9 @@ export default function DicomPicker() {
       beforeUpload={() => false}
       onChange={async (info) => {
         const arrayBuffer = await info.file.arrayBuffer();
-        const dcm = parseDicom(new Uint8Array(arrayBuffer));
-        console.log(dcm);
+        if (onChange) {
+          onChange(arrayBuffer);
+        }
       }}
     >
       <p className="ant-upload-drag-icon">
