@@ -1,0 +1,7 @@
+{
+  "prettier.ignorePath": "",
+  "prettier.requireConfig": false,
+  "editor.formatOnSave": true,
+  "prettier.printWidth": 300,
+  "editor.tabSize": 2
+}
