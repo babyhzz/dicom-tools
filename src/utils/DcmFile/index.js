@@ -1,5 +1,5 @@
 import { parseDicom } from "@dcmtools/dicom-parser";
-import parseDataSet from "./parse-dataset";
+import { parseDataSetToJsonArray } from "./parse-dataset";
 
 class DcmFile {
   constructor(arrayBuffer) {
@@ -8,13 +8,20 @@ class DcmFile {
     this.tags = null;
   }
 
+  getDataSet() {
+    if (!this.dataSet) {
+      this.dataSet = parseDicom(new Uint8Array(this.arrayBuffer));
+    }
+    return this.dataSet;
+  }
+
   readTags() {
     if (!this.dataSet) {
       this.dataSet = parseDicom(new Uint8Array(this.arrayBuffer));
     }
 
     if (!this.tags) {
-      this.tags = parseDataSet(this.dataSet);
+      this.tags = parseDataSetToJsonArray(this.dataSet);
     }
 
     // Logic to read DICOM tags
