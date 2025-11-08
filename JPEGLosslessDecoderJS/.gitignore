@@ -1,0 +1,9 @@
+build/
+node_modules/
+.idea/
+release.sh
+.DS_Store
+*.d.cts
+*.d.ts
+*.js.map
+*.cjs.map

@@ -1,0 +1,15 @@
+## All Non-Dist Directories
+config/
+coverage/
+documentation/
+examples/
+src/
+test/
+testImages/
+
+## Root Files
+.babelrc
+.eslintignore
+.gitignore
+.jsdocrc
+.travis.yml
