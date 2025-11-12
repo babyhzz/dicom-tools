@@ -1,7 +1,7 @@
 # netlify.toml
 [build]
   base = "viewer"
-  publish = "viewer/dist"
+  publish = "dist"
   command = "npm run build"
 
 [[redirects]]
