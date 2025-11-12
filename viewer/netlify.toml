@@ -1,0 +1,10 @@
+# netlify.toml
+[build]
+  base = "viewer"
+  publish = "viewer/dist"
+  command = "npm run build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
