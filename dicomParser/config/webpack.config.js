@@ -29,6 +29,7 @@ const baseConfig = {
 const umdConfig = {
   ...baseConfig,
   mode: "production",
+  devtool: "source-map",
   output: {
     path: path.resolve(__dirname, "../dist"),
     filename: "dicomParser.min.js",
@@ -48,6 +49,7 @@ const umdConfig = {
 const esmConfig = {
   ...baseConfig,
   mode: "production",
+  devtool: "source-map",
   output: {
     path: path.resolve(__dirname, "../dist"),
     filename: "dicomParser.esm.js",
