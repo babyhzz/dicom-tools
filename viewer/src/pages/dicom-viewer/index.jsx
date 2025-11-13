@@ -5,7 +5,7 @@ import { Table } from "antd";
 import { cloneDeep } from "lodash-es";
 import { useMemo, useState } from "react";
 
-function DicomTag() {
+function DicomViewer() {
   const [tags, setTags] = useState(null);
 
   const handleDicomChange = (arrayBuffer) => {
@@ -44,9 +44,19 @@ function DicomTag() {
       <div>
         <DicomPicker onChange={handleDicomChange} />
       </div>
-      <div>{tags && <Table rowKey="key" dataSource={tags} columns={columns} pagination={false} />}</div>
+      <div></div>
+      <div>
+        {tags && (
+          <Table
+            rowKey="key"
+            dataSource={tags}
+            columns={columns}
+            pagination={false}
+          />
+        )}
+      </div>
     </div>
   );
 }
 
-export default DicomTag;
+export default DicomViewer;
