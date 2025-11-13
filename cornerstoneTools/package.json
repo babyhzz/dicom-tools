@@ -19,6 +19,9 @@
   "engines": {
     "node": ">=8.16.0"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "npm run test && npm run clean:dist && npm run version && npm run build:prod && npm run build:dev",
     "build:dev": "webpack --progress --config ./config/webpack/webpack-dev",
@@ -35,7 +38,6 @@
     "docs:book": "npm run docs:api && cd ./docs/latest && gitbook install && gitbook serve",
     "docs:deploy": "bash ./.circleci/update-docs.sh",
     "lint": "eslint -c .eslintrc.js --fix src && prettier --single-quote --write src/**/*.{js,json,css}",
-    "prepublishOnly": "npm run build",
     "start": "npm run build:prod && npm run build:dev",
     "test": "npm run test:unit",
     "test:unit": "jest --clearCache && jest --runInBand \\.test\\.js$",
