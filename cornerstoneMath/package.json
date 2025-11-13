@@ -1,6 +1,6 @@
 {
-  "name": "cornerstone-math",
-  "version": "0.1.10",
+  "name": "@dcmtools/stone-math",
+  "version": "0.0.1",
   "description": "Math and computation geometry functionality for cornerstone",
   "main": "./dist/cornerstoneMath.min.js",
   "keywords": [
@@ -11,6 +11,7 @@
     "math",
     "computation geometry"
   ],
+  
   "author": "Chris Hafey",
   "homepage": "https://github.com/cornerstonejs/cornerstoneMath",
   "license": "MIT",
@@ -18,6 +19,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/cornerstonejs/cornerstoneMath.git"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "npm run test && npm run version && npm run webpack && npm run doc:generate",
