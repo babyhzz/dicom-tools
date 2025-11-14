@@ -1,7 +1,7 @@
 import DicomPicker from "@/components/DicomPicker";
 import dicomDict from "@/utils/DcmFile/dicom-dict";
 import { parseDicom, dataSetToTree } from "@dcmtools/dicom-parser";
-import { Table } from "antd";
+import { Layout, Table } from "antd";
 import { cloneDeep } from "lodash-es";
 import { useMemo, useState } from "react";
 
@@ -40,22 +40,24 @@ function DicomViewer() {
   ];
 
   return (
-    <div className="container mx-auto p-4">
-      <div>
-        <DicomPicker onChange={handleDicomChange} />
+    <Layout className="h-full">
+      <div className="container mx-auto p-4">
+        <div>
+          <DicomPicker onChange={handleDicomChange} />
+        </div>
+        <div></div>
+        <div>
+          {tags && (
+            <Table
+              rowKey="key"
+              dataSource={tags}
+              columns={columns}
+              pagination={false}
+            />
+          )}
+        </div>
       </div>
-      <div></div>
-      <div>
-        {tags && (
-          <Table
-            rowKey="key"
-            dataSource={tags}
-            columns={columns}
-            pagination={false}
-          />
-        )}
-      </div>
-    </div>
+    </Layout>
   );
 }
 

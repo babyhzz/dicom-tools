@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router";
 import DicomViewer from "./pages/dicom-viewer";
 import "./index.css";
+import { ConfigProvider, theme } from "antd";
 
 const router = createBrowserRouter([
   {
@@ -15,5 +16,12 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <ConfigProvider
+    theme={{
+      algorithm: theme.darkAlgorithm,
+      // algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
+    }}
+  >
+    <RouterProvider router={router} />
+  </ConfigProvider>
 );
