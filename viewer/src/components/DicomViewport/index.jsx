@@ -1,5 +1,7 @@
-import cornerstone from "@dcmtools/stone-core";
+import * as cornerstone from "@dcmtools/stone-core";
 import * as cornerstoneWADOImageLoader from "@dcmtools/stone-wado-image-loader";
+
+cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
 
 export default function DicomViewport({ imageId }) {
   useEffect(() => {

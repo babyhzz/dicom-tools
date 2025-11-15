@@ -6,6 +6,15 @@
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DICOM</title>
+  <script src="/cornerstone.min.js"></script>
+  <script src="/dicomParser.min.js"></script>
+  <script src="/cornerstoneWADOImageLoader.min.js"></script>
+
+  <script>
+    cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
+    cornerstoneWADOImageLoader.external.dicomParser = dicomParser;
+    cornerstoneWADOImageLoader.webWorkerManager.initialize();
+  </script>
 </head>
 
 <body>
