@@ -12,9 +12,8 @@ export default function DicomPicker({ onChange }) {
       showUploadList={false}
       beforeUpload={() => false}
       onChange={async (info) => {
-        const arrayBuffer = await info.file.arrayBuffer();
         if (onChange) {
-          onChange(arrayBuffer);
+          onChange(info.file);
         }
       }}
     >

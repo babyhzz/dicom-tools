@@ -1,62 +1,50 @@
 import DicomPicker from "@/components/DicomPicker";
+import DicomTagTable from "@/components/DicomTagTable";
+import DicomViewport from "@/components/DicomViewport";
+import Icons from "@/components/Icons";
 import dicomDict from "@/utils/DcmFile/dicom-dict";
 import { parseDicom, dataSetToTree } from "@dcmtools/dicom-parser";
-import { Layout, Table } from "antd";
+import { Layout, Space, Table, Button } from "antd";
 import { cloneDeep } from "lodash-es";
 import { useMemo, useState } from "react";
 
-function DicomViewer() {
-  const [tags, setTags] = useState(null);
+const { Header, Content } = Layout;
 
-  const handleDicomChange = (arrayBuffer) => {
-    // Parse the DICOM file using dcmtools
+function DicomViewer() {
+  const [imageId, setImageId] = useState(null);
+
+  const handleDicomChange = (file) => {
     try {
-      const dataSet = parseDicom(new Uint8Array(arrayBuffer));
-      const tags = dataSetToTree(dataSet, dicomDict);
-      setTags(tags);
-      console.log(tags);
+      const imageId = cornerstoneWADOImageLoader.wadouri.fileManager.add(file);
+      setImageId(imageId);
     } catch (error) {
       console.error("Error parsing DICOM file:", error);
     }
   };
 
-  const columns = [
-    {
-      title: "Tag",
-      dataIndex: "tag",
-    },
-    {
-      title: "VR",
-      dataIndex: "vr",
-    },
-    {
-      title: "Keyword",
-      dataIndex: "name",
-    },
-    {
-      title: "Value",
-      dataIndex: "value",
-    },
-  ];
+  const renderContent = () => {
+    if (!imageId) {
+      return <DicomPicker onChange={handleDicomChange} />;
+    }
+
+    return (
+      <div className="flex flex-row gap-4 h-full">
+        <div className="flex-1">
+          <DicomViewport />
+        </div>
+        <div className="w-lg">{/* <DicomTagTable dataSet={imageId} /> */}</div>
+      </div>
+    );
+  };
 
   return (
     <Layout className="h-full">
-      <div className="container mx-auto p-4">
-        <div>
-          <DicomPicker onChange={handleDicomChange} />
-        </div>
-        <div></div>
-        <div>
-          {tags && (
-            <Table
-              rowKey="key"
-              dataSource={tags}
-              columns={columns}
-              pagination={false}
-            />
-          )}
-        </div>
-      </div>
+      <Header className="px-1">
+        <Space>
+          <Button type="text" icon={<Icons.DicomTagBrowser />} />
+        </Space>
+      </Header>
+      <Content className="flex-1 overflow-auto">{renderContent()}</Content>
     </Layout>
   );
 }

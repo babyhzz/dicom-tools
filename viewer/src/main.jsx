@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider, Navigate } from "react-router";
 import DicomViewer from "./pages/dicom-viewer";
 import "./index.css";
 import { ConfigProvider, theme } from "antd";
+import { dicomDarkTokens } from "./theme/ dicom-theme-dark";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,7 @@ createRoot(document.getElementById("root")).render(
   <ConfigProvider
     theme={{
       algorithm: theme.darkAlgorithm,
-      // algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
+      token: dicomDarkTokens,
     }}
   >
     <RouterProvider router={router} />

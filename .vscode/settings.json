@@ -3,5 +3,6 @@
   "prettier.requireConfig": false,
   "editor.formatOnSave": true,
   "prettier.printWidth": 80,
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "cSpell.words": ["wado"]
 }
