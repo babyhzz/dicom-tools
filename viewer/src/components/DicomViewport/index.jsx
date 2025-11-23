@@ -1,17 +1,20 @@
-import * as cornerstone from "@dcmtools/stone-core";
-import * as cornerstoneWADOImageLoader from "@dcmtools/stone-wado-image-loader";
-
-cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
+import { useEffect } from "react";
 
 export default function DicomViewport({ imageId }) {
+  useEffect(() => {}, []);
+
   useEffect(() => {
     if (imageId) {
       const element = document.getElementById("dicomImage");
       cornerstone.enable(element);
-      const viewport = cornerstone.getDefaultViewportForImage(element, image);
       cornerstone.loadImage(imageId).then((image) => {
         cornerstone.displayImage(element, image);
       });
+
+      const WwwcTool = cornerstoneTools.WwwcTool;
+
+      cornerstoneTools.addTool(WwwcTool);
+      cornerstoneTools.setToolActive("Wwwc", { mouseButtonMask: 1 });
     }
   }, [imageId]);
 

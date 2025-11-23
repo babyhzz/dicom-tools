@@ -6,14 +6,19 @@
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DICOM</title>
-  <script src="/cornerstone.min.js"></script>
-  <script src="/dicomParser.min.js"></script>
-  <script src="/cornerstoneWADOImageLoader.min.js"></script>
+  <script src="https://unpkg.com/hammerjs@2.0.8/hammer.min.js"></script>
+  <script src="http://127.0.0.1:5500/dicomParser/dist/dicomParser.min.js"></script>
+  <script src="http://127.0.0.1:5500/cornerstoneCore/dist/cornerstone.js"></script>
+  <script src="http://127.0.0.1:5500/cornerstoneMath/dist/cornerstoneMath.js"></script>
+  <script src="http://127.0.0.1:5500/cornerstoneTools/dist/cornerstoneTools.js"></script>
+  <script src="http://127.0.0.1:5500/cornerstoneWADOImageLoader/dist/cornerstoneWADOImageLoader.bundle.min.js"></script>
 
   <script>
     cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
+    cornerstoneWADOImageLoader.external.cornerstoneMath = cornerstoneMath;
     cornerstoneWADOImageLoader.external.dicomParser = dicomParser;
     cornerstoneWADOImageLoader.webWorkerManager.initialize();
+    cornerstoneTools.init();
   </script>
 </head>
 

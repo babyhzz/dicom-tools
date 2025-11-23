@@ -28,11 +28,8 @@ function DicomViewer() {
     }
 
     return (
-      <div className="flex flex-row gap-4 h-full">
-        <div className="flex-1">
-          <DicomViewport />
-        </div>
-        <div className="w-lg">{/* <DicomTagTable dataSet={imageId} /> */}</div>
+      <div className="h-full">
+        <DicomViewport imageId={imageId} />
       </div>
     );
   };

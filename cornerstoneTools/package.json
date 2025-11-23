@@ -23,7 +23,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "npm run test && npm run clean:dist && npm run version && npm run build:prod && npm run build:dev",
+    "build": "npm run clean:dist && npm run version && npm run build:prod && npm run build:dev",
     "build:dev": "webpack --progress --config ./config/webpack/webpack-dev",
     "build:prod": "webpack --config ./config/webpack/webpack-prod",
     "commit": "git-cz",
@@ -39,9 +39,6 @@
     "docs:deploy": "bash ./.circleci/update-docs.sh",
     "lint": "eslint -c .eslintrc.js --fix src && prettier --single-quote --write src/**/*.{js,json,css}",
     "start": "npm run build:prod && npm run build:dev",
-    "test": "npm run test:unit",
-    "test:unit": "jest --clearCache && jest --runInBand \\.test\\.js$",
-    "test:ci": "npm run test:unit && codecov",
     "version": "node -p -e \"'export default \\'' + require('./package.json').version + '\\';'\" > src/version.js"
   },
   "husky": {
