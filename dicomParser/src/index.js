@@ -6,6 +6,9 @@ import {
   elementToString,
   explicitDataSetToJS,
   createJPEGBasicOffsetTable,
+  parsePN,
+  parseTM,
+  parseDA,
 } from "./util/index.js";
 
 import {
@@ -38,6 +41,9 @@ import readTag from "./readTag.js";
 const dicomParser = {
   isStringVr,
   isPrivateTag,
+  parsePN,
+  parseTM,
+  parseDA,
   elementToString,
   dataSetToTree,
   dataSetToJson,
@@ -73,6 +79,9 @@ const dicomParser = {
 export {
   isStringVr,
   isPrivateTag,
+  parsePN,
+  parseTM,
+  parseDA,
   elementToString,
   dataSetToTree,
   dataSetToJson,

@@ -4,6 +4,9 @@ import elementToString from "./elementToString.js";
 import explicitDataSetToJS from "./dataSetToJS.js";
 import createJPEGBasicOffsetTable from "./createJPEGBasicOffsetTable.js";
 import { dataSetToTree, dataSetToJson } from "./dataSetWithDictionary.js";
+import parseTM from "./parseTM.js";
+import parseDA from "./parseDA.js";
+import parsePN from "./parsePN.js";
 
 export {
   isStringVr,
@@ -15,4 +18,7 @@ export {
   elementToString,
   explicitDataSetToJS,
   createJPEGBasicOffsetTable,
+  parsePN,
+  parseTM,
+  parseDA,
 };
