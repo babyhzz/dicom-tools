@@ -528,6 +528,7 @@ function _trackGlobalToolModeChange(mode, toolName, options, interactionTypes) {
     args: [toolName, options],
   };
 
+  // 历史遗留的僵尸代码
   if (interactionTypes) {
     historyEvent.push(interactionTypes);
   }

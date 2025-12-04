@@ -4,5 +4,5 @@
   "editor.formatOnSave": true,
   "prettier.printWidth": 80,
   "editor.tabSize": 2,
-  "cSpell.words": ["wado"]
+  "cSpell.words": ["Viewports", "wado"]
 }
