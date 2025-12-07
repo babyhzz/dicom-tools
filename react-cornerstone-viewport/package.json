@@ -1,5 +1,5 @@
 {
-  "name": "react-cornerstone-viewport",
+  "name": "@dcmtools/stone-viewport",
   "version": "0.2.2",
   "description": "Cornerstone medical image viewport component for React",
   "author": "Cornerstone Contributors",
