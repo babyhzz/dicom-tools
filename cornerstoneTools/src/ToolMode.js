@@ -1,5 +1,5 @@
 /**
- *  Enumerates the modes for a CornestoneTools tool. A tool's mode
+ *  Enumerates the modes for a CornerstoneTools tool. A tool's mode
  *  defines in what way it is rendered and responds to user input.
  *  @enum {String}
  *  @memberof CornerstoneTools
