@@ -10,6 +10,7 @@ module.exports = {
   parser: '@babel/eslint-parser',
   parserOptions: {
     sourceType: 'module',
+    requireConfigFile: false, // 禁用Babel配置文件检查
   },
   globals: {
     jpeg: true,
