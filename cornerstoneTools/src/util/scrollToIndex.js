@@ -63,6 +63,7 @@ export default function(element, newImageIdIndex) {
       return;
     }
 
+    // 这个逻辑似乎没走，可以不看
     if (stackRenderer) {
       stackRenderer.currentImageIdIndex = newImageIdIndex;
       stackRenderer.render(element, toolData.data);
