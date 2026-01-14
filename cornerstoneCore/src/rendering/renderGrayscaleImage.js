@@ -1,14 +1,14 @@
-import getFillStyle from '../internal/getFillStyle.js';
-import storedPixelDataToCanvasImageData from '../internal/storedPixelDataToCanvasImageData.js';
-import storedPixelDataToCanvasImageDataRGBA from '../internal/storedPixelDataToCanvasImageDataRGBA.js';
-import setToPixelCoordinateSystem from '../setToPixelCoordinateSystem.js';
-import now from '../internal/now.js';
-import webGL from '../webgl/index.js';
-import getLut from './getLut.js';
-import doesImageNeedToBeRendered from './doesImageNeedToBeRendered.js';
-import initializeRenderCanvas from './initializeRenderCanvas.js';
-import saveLastRendered from './saveLastRendered.js';
-import getDisplayedArea from '../internal/getDisplayedArea.js';
+import getFillStyle from "../internal/getFillStyle.js";
+import storedPixelDataToCanvasImageData from "../internal/storedPixelDataToCanvasImageData.js";
+import storedPixelDataToCanvasImageDataRGBA from "../internal/storedPixelDataToCanvasImageDataRGBA.js";
+import setToPixelCoordinateSystem from "../setToPixelCoordinateSystem.js";
+import now from "../internal/now.js";
+import webGL from "../webgl/index.js";
+import getLut from "./getLut.js";
+import doesImageNeedToBeRendered from "./doesImageNeedToBeRendered.js";
+import initializeRenderCanvas from "./initializeRenderCanvas.js";
+import saveLastRendered from "./saveLastRendered.js";
+import getDisplayedArea from "../internal/getDisplayedArea.js";
 
 /**
  * Returns an appropriate canvas to render the Image. If the canvas available in the cache is appropriate
@@ -21,24 +21,37 @@ import getDisplayedArea from '../internal/getDisplayedArea.js';
  * @returns {HTMLCanvasElement} An appropriate canvas for rendering the image
  * @memberof rendering
  */
-function getRenderCanvas (enabledElement, image, invalidated, useAlphaChannel = true) {
-  const canvasWasColor = enabledElement.renderingTools.lastRenderedIsColor === true;
+function getRenderCanvas(
+  enabledElement,
+  image,
+  invalidated,
+  useAlphaChannel = true
+) {
+  const canvasWasColor =
+    enabledElement.renderingTools.lastRenderedIsColor === true;
 
   if (!enabledElement.renderingTools.renderCanvas || canvasWasColor) {
-    enabledElement.renderingTools.renderCanvas = document.createElement('canvas');
+    enabledElement.renderingTools.renderCanvas =
+      document.createElement("canvas");
     initializeRenderCanvas(enabledElement, image);
   }
 
   const renderCanvas = enabledElement.renderingTools.renderCanvas;
 
-  if (doesImageNeedToBeRendered(enabledElement, image) === false && invalidated !== true) {
+  if (
+    doesImageNeedToBeRendered(enabledElement, image) === false &&
+    invalidated !== true
+  ) {
     return renderCanvas;
   }
 
   // If our render canvas does not match the size of this image reset it
   // NOTE: This might be inefficient if we are updating multiple images of different
   // Sizes frequently.
-  if (renderCanvas.width !== image.width || renderCanvas.height !== image.height) {
+  if (
+    renderCanvas.width !== image.width ||
+    renderCanvas.height !== image.height
+  ) {
     initializeRenderCanvas(enabledElement, image);
   }
 
@@ -74,27 +87,34 @@ function getRenderCanvas (enabledElement, image, invalidated, useAlphaChannel = 
  * @returns {void}
  * @memberof rendering
  */
-export function renderGrayscaleImage (enabledElement, invalidated) {
+export function renderGrayscaleImage(enabledElement, invalidated) {
   if (enabledElement === undefined) {
-    throw new Error('drawImage: enabledElement parameter must not be undefined');
+    throw new Error(
+      "drawImage: enabledElement parameter must not be undefined"
+    );
   }
 
   const image = enabledElement.image;
 
   if (image === undefined) {
-    throw new Error('drawImage: image must be loaded before it can be drawn');
+    throw new Error("drawImage: image must be loaded before it can be drawn");
   }
 
   // Get the canvas context and reset the transform
-  const context = enabledElement.canvas.getContext('2d', {
-    desynchronized: true
+  const context = enabledElement.canvas.getContext("2d", {
+    desynchronized: true,
   });
 
   context.setTransform(1, 0, 0, 1, 0, 0);
 
   // Clear the canvas
   context.fillStyle = getFillStyle(enabledElement);
-  context.fillRect(0, 0, enabledElement.canvas.width, enabledElement.canvas.height);
+  context.fillRect(
+    0,
+    0,
+    enabledElement.canvas.width,
+    enabledElement.canvas.height
+  );
 
   // Turn off image smooth/interpolation if pixelReplication is set in the viewport
   context.imageSmoothingEnabled = !enabledElement.viewport.pixelReplication;
@@ -105,8 +125,11 @@ export function renderGrayscaleImage (enabledElement, invalidated) {
 
   let renderCanvas;
 
-  if (enabledElement.options && enabledElement.options.renderer &&
-    enabledElement.options.renderer.toLowerCase() === 'webgl') {
+  if (
+    enabledElement.options &&
+    enabledElement.options.renderer &&
+    enabledElement.options.renderer.toLowerCase() === "webgl"
+  ) {
     // If this enabled element has the option set for WebGL, we should
     // User it as our renderer.
     renderCanvas = webGL.renderer.render(enabledElement);
@@ -116,12 +139,19 @@ export function renderGrayscaleImage (enabledElement, invalidated) {
     renderCanvas = getRenderCanvas(enabledElement, image, invalidated);
   }
 
-  const imageDisplayedArea = getDisplayedArea(enabledElement.image, enabledElement.viewport);
+  const imageDisplayedArea = getDisplayedArea(
+    enabledElement.image,
+    enabledElement.viewport
+  );
   const sx = imageDisplayedArea.tlhc.x - 1;
   const sy = imageDisplayedArea.tlhc.y - 1;
   const width = imageDisplayedArea.brhc.x - sx;
   const height = imageDisplayedArea.brhc.y - sy;
 
+  // 由于 renderCanvas 设置了 desynchronized: true
+  // renderCanvas 的像素可以在 drawImage 之后才 materialize
+  // 因此多个 drawImage 可能最终都读取到 renderCanvas 的最终状态
+  // 这里只是关联，并没有执行真正的绘制动作
   context.drawImage(renderCanvas, sx, sy, width, height, sx, sy, width, height);
 
   enabledElement.renderingTools = saveLastRendered(enabledElement);
@@ -136,21 +166,23 @@ export function renderGrayscaleImage (enabledElement, invalidated) {
                                         This does not work if this layer is not the first layer in the enabledElement.
  * @returns {void}
  */
-export function addGrayscaleLayer (layer, invalidated, useAlphaChannel = false) {
+export function addGrayscaleLayer(layer, invalidated, useAlphaChannel = false) {
   if (layer === undefined) {
-    throw new Error('addGrayscaleLayer: layer parameter must not be undefined');
+    throw new Error("addGrayscaleLayer: layer parameter must not be undefined");
   }
 
   const image = layer.image;
 
   if (image === undefined) {
-    throw new Error('addGrayscaleLayer: image must be loaded before it can be drawn');
+    throw new Error(
+      "addGrayscaleLayer: image must be loaded before it can be drawn"
+    );
   }
 
   layer.canvas = getRenderCanvas(layer, image, invalidated, useAlphaChannel);
 
-  const context = layer.canvas.getContext('2d', {
-    desynchronized: true
+  const context = layer.canvas.getContext("2d", {
+    desynchronized: true,
   });
 
   // Turn off image smooth/interpolation if pixelReplication is set in the viewport
