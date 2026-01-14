@@ -181,7 +181,8 @@ function generateTexture(image) {
   };
 
   const TEXTURE_BYTES = {
-    int8: 1, // Luminance
+    uint8: 1, // Luminance
+    int8: 2, // Luminance + Alpha
     uint16: 2, // Luminance + Alpha
     int16: 3, // RGB
     rgb: 3, // RGB
